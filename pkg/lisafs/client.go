@@ -92,10 +92,12 @@ func NewClient(sock *unet.Socket) (*Client, Inode, int, error) {
 		mountResp   MountResp
 		mountHostFD = [1]int{-1}
 	)
+	log.Warningf("Debug: mountReq: %s", mountReq)
 	if err := c.SndRcvMessage(Mount, uint32(mountReq.SizeBytes()), mountReq.MarshalBytes, mountResp.CheckedUnmarshal, mountHostFD[:], mountReq.String, mountResp.String); err != nil {
 		c.Close()
 		return nil, Inode{}, -1, err
 	}
+	log.Warningf("Debug: mountHostFD %s", mountHostFD)
 
 	// Initialize client.
 	c.maxMessageSize = uint32(mountResp.MaxMessageSize)

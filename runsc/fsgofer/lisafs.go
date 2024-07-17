@@ -121,10 +121,11 @@ func (s *LisafsServer) Mount(c *lisafs.Connection, mountNode *lisafs.Node) (*lis
 		log.Warningf("Mount: checkSupportedFileType() failed for file %q with mode %o: %v", mountPath, stat.Mode, err)
 		return nil, linux.Statx{}, -1, err
 	}
-
+	log.Warningf("Debug: s.config.DonateMountPointFD %s", s.config.DonateMountPointFD)	
 	clientHostFD := -1
 	if s.config.DonateMountPointFD {
 		clientHostFD, err = unix.Dup(rootHostFD)
+		log.Warningf("Debug: clientHostFD: %d , rootHostFD: %d", clientHostFD, rootHostFD)
 		if err != nil {
 			return nil, linux.Statx{}, -1, err
 		}
@@ -138,6 +139,7 @@ func (s *LisafsServer) Mount(c *lisafs.Connection, mountNode *lisafs.Node) (*lis
 	}
 	mountNode.IncRef() // Ref is transferred to ControlFD.
 	rootFD.ControlFD.Init(c, mountNode, linux.FileMode(stat.Mode), rootFD)
+	log.Warningf("Debug: rootFD.FD() %s, stat %s, clientHostFD %d",rootFD.FD(), stat, clientHostFD)
 	return rootFD.FD(), stat, clientHostFD, nil
 }
 

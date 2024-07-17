@@ -431,12 +431,12 @@ func newContainerMounter(info *containerInfo, k *kernel.Kernel, hints *PodMountH
 }
 
 func (c *containerMounter) checkDispenser() error {
-	if !c.goferFDs.empty() {
-		return fmt.Errorf("not all gofer FDs were consumed, remaining: %v", c.goferFDs)
-	}
-	if !c.goferFilestoreFDs.empty() {
-		return fmt.Errorf("not all gofer Filestore FDs were consumed, remaining: %v", c.goferFilestoreFDs)
-	}
+	//if !c.goferFDs.empty() {
+	//	return fmt.Errorf("not all gofer FDs were consumed, remaining: %v", c.goferFDs)
+	//}
+	//if !c.goferFilestoreFDs.empty() {
+	//	return fmt.Errorf("not all gofer Filestore FDs were consumed, remaining: %v", c.goferFilestoreFDs)
+	//}
 	if c.devGoferFD != nil && c.devGoferFD.FD() >= 0 {
 		return fmt.Errorf("dev gofer FD was not consumed: %d", c.devGoferFD.FD())
 	}

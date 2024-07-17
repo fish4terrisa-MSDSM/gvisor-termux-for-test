@@ -595,7 +595,9 @@ func (fs *filesystem) initClientAndGetRoot(ctx context.Context) (lisafs.Inode, i
 		rootInode  lisafs.Inode
 		rootHostFD int
 	)
+	log.Warningf("Debug: sock: %s", sock)
 	fs.client, rootInode, rootHostFD, err = lisafs.NewClient(sock)
+	log.Warningf("Debug: fs.client: %s, rootInode: %s, rootHostFD: %d", fs.client, rootInode, rootHostFD)
 	if err != nil {
 		return lisafs.Inode{}, -1, err
 	}

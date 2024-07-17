@@ -1349,7 +1349,7 @@ func (c *Container) createGoferProcess(spec *specs.Spec, conf *config.Config, bu
 
 	// Start the gofer in the given namespace.
 	donation.LogDonations(cmd)
-	cmd.Path = "/data/data/com.termux/files/home/gvisor/bin/runsc"
+	cmd.Path = "/proc/self/exe"
 	log.Debugf("Starting gofer: %s %v", cmd.Path, cmd.Args)
 	if err := specutils.StartInNS(cmd, nss); err != nil {
 		return nil, nil, nil, fmt.Errorf("gofer: %v", err)

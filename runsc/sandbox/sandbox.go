@@ -84,7 +84,7 @@ func createControlSocket(rootDir, id string) (string, int, error) {
 	name := fmt.Sprintf("runsc-%s.sock", id)
 
 	// Only use absolute paths to guarantee resolution from anywhere.
-	for _, dir := range []string{rootDir, "/var/run", "/run", "/tmp"} {
+	for _, dir := range []string{rootDir, "/var/run", "/run", "/data/data/com.termux/files/usr/tmp"} {
 		path := filepath.Join(dir, name)
 		log.Debugf("Attempting to create socket file %q", path)
 		fd, err := server.CreateSocket(path)

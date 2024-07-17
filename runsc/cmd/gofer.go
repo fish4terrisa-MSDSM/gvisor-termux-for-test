@@ -282,7 +282,7 @@ func (g *Gofer) serve(spec *specs.Spec, conf *config.Config, root string) subcom
 		// Start with root mount, then add any other additional mount as needed.
 		cfgs = append(cfgs, connectionConfig{
 			sock:      newSocket(ioFDs[0]),
-			mountPath: "/", // fsgofer process is always chroot()ed. So serve root.
+			mountPath: "/data/data/com.termux/files/home/gvisor-testing/bundle/rootfs", // fsgofer process is always chroot()ed. So serve root.
 			readonly:  spec.Root.Readonly || rootfsConf.ShouldUseOverlayfs(),
 		})
 		log.Infof("Serving %q mapped to %q on FD %d (ro: %t)", "/", root, ioFDs[0], cfgs[0].readonly)
